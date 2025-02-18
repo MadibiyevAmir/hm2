@@ -1,0 +1,50 @@
+package com.example.mud.model;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Room {
+    private final String name;
+    private final String description;
+    private final Map<String, Room> exits;
+    private final List<Item> items;
+
+    public Room(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.exits = new HashMap<>();
+        this.items = new ArrayList<>();
+    }
+
+    public void setExit(String direction, Room room) {
+        exits.put(direction, room);
+    }
+
+    public Room getExit(String direction) {
+        return exits.get(direction);
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public Item takeItem(String itemName) {
+        for (Item item : items) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                items.remove(item);
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+}
